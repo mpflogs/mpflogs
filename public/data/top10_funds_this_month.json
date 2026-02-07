@@ -1,0 +1,107 @@
+{
+  "generatedAt": "2026-02-07T10:08:56.830Z",
+  "thisMonth": "2025-12",
+  "lastMonth": "2025-11",
+  "top10": [
+    {
+      "rank": 1,
+      "fund": "BEA Asian Equity Fund",
+      "fundZh": "東亞亞洲股票基金",
+      "trustee": "Bank of East Asia (Trustees) Limited",
+      "scheme": "BEA (MPF) Value Scheme",
+      "priceThisMonth": 20.3215,
+      "priceLastMonth": 19.3115,
+      "changePercent": 5.230044274137181
+    },
+    {
+      "rank": 2,
+      "fund": "BEA (MPF) Asian Equity Fund",
+      "fundZh": "東亞 (強積金) 亞洲股票基金",
+      "trustee": "Bank of East Asia (Trustees) Limited",
+      "scheme": "BEA (MPF) Master Trust Scheme",
+      "priceThisMonth": 38.1527,
+      "priceLastMonth": 36.2643,
+      "changePercent": 5.207325110370266
+    },
+    {
+      "rank": 3,
+      "fund": "BEA (Industry Scheme) Asian Equity Fund",
+      "fundZh": "東亞 (行業計劃) 亞洲股票基金",
+      "trustee": "Bank of East Asia (Trustees) Limited",
+      "scheme": "BEA (MPF) Industry Scheme",
+      "priceThisMonth": 22.2366,
+      "priceLastMonth": 21.1426,
+      "changePercent": 5.174387256061211
+    },
+    {
+      "rank": 4,
+      "fund": "Haitong Korea Fund - Class A",
+      "fundZh": "海通韓國基金 - A 類別",
+      "trustee": "HSBC Provident Fund Trustee (Hong Kong) Limited",
+      "scheme": "Haitong MPF Retirement Fund",
+      "priceThisMonth": 46.3757,
+      "priceLastMonth": 44.17,
+      "changePercent": 4.993660855784469
+    },
+    {
+      "rank": 5,
+      "fund": "Haitong Korea Fund - Class T",
+      "fundZh": "海通韓國基金 - T 類別",
+      "trustee": "HSBC Provident Fund Trustee (Hong Kong) Limited",
+      "scheme": "Haitong MPF Retirement Fund",
+      "priceThisMonth": 51.0243,
+      "priceLastMonth": 48.6,
+      "changePercent": 4.988271604938261
+    },
+    {
+      "rank": 6,
+      "fund": "My Choice Asia Equity Fund",
+      "fundZh": "我的亞洲股票基金",
+      "trustee": "BOCI-Prudential Trustee Limited",
+      "scheme": "My Choice Mandatory Provident Fund Scheme",
+      "priceThisMonth": 24.6871,
+      "priceLastMonth": 23.6854,
+      "changePercent": 4.229187600800491
+    },
+    {
+      "rank": 7,
+      "fund": "AMTD Invesco Europe Fund",
+      "fundZh": "AMTD 景順歐洲基金",
+      "trustee": "Bank Consortium Trust Company Limited",
+      "scheme": "AMTD MPF Scheme",
+      "priceThisMonth": 25.6159,
+      "priceLastMonth": 24.5767,
+      "changePercent": 4.2283951873115635
+    },
+    {
+      "rank": 8,
+      "fund": "Asia Pacific Equity Fund",
+      "fundZh": "亞太股票基金",
+      "trustee": "HSBC Provident Fund Trustee (Hong Kong) Limited",
+      "scheme": "Fidelity Retirement Master Trust",
+      "priceThisMonth": 35.594,
+      "priceLastMonth": 34.162,
+      "changePercent": 4.191792049645811
+    },
+    {
+      "rank": 9,
+      "fund": "BCT (Pro) European Equity Fund  ",
+      "fundZh": "BCT歐洲股票基金",
+      "trustee": "Bank Consortium Trust Company Limited",
+      "scheme": "BCT (MPF) Pro Choice",
+      "priceThisMonth": 1.8719,
+      "priceLastMonth": 1.7969,
+      "changePercent": 4.173854972452555
+    },
+    {
+      "rank": 10,
+      "fund": "European Equity Fund",
+      "fundZh": "歐洲股票基金",
+      "trustee": "AIA Company (Trustee) Limited",
+      "scheme": "AIA MPF - Prime Value Choice",
+      "priceThisMonth": 399.62,
+      "priceLastMonth": 384.79,
+      "changePercent": 3.8540502611814196
+    }
+  ]
+}

@@ -10,7 +10,8 @@
     "data:split-trustees-schemes": "node scripts/split-trustees-schemes.mjs",
     "data:generate-all-trustees-schemes": "node scripts/generate-all-trustees-schemes.mjs",
     "data:split-fund-price-scheme": "node scripts/split-fund-price-scheme.mjs",
-    "data:merge-fund-price-months": "node scripts/merge-fund-price-months.mjs"
+    "data:merge-fund-price-months": "node scripts/merge-fund-price-months.mjs",
+    "data:top10-funds-this-month": "node scripts/top10-funds-this-month.mjs"
   },
   "dependencies": {
     "@astrojs/react": "^3.6.2",

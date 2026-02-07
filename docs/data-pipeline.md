@@ -249,6 +249,47 @@ npm run data:generate-all-trustees-schemes
 
 ---
 
+## Script 6：top10-funds-this-month.mjs（Node）
+
+### 用途
+
+- 讀取 **fund_price_scheme.json**（`data/mpf/json/` 或 `public/data/`），以資料中最後一個月份為「本月」、倒數第二個月份為「上個月」。
+- 計算每檔基金的月變動百分比 `(本月價格 - 上月價格) / 上月價格 * 100`，依百分比由高到低排序，取前 10 名。
+- 輸出 **top10_funds_this_month.json** 至 `data/mpf/json/` 與 **public/data/**（首頁圖表用）。
+
+### 執行
+
+```bash
+npm run data:top10-funds-this-month
+# 或：node scripts/top10-funds-this-month.mjs
+```
+
+**建議順序**：先跑 `data:merge-fund-price-months` 並 `cp fund_price_scheme.json public/data/`，再跑本腳本。Deploy 時 `.github/workflows/deploy.yml` 會先執行本腳本再 build，無需手動複製。
+
+### 輸出結構（top10_funds_this_month.json）
+
+```json
+{
+  "generatedAt": "ISO 時間",
+  "thisMonth": "2025-12",
+  "lastMonth": "2025-11",
+  "top10": [
+    {
+      "rank": 1,
+      "fund": "BEA Asian Equity Fund",
+      "fundZh": "東亞亞洲股票基金",
+      "trustee": "...",
+      "scheme": "...",
+      "priceThisMonth": 20.32,
+      "priceLastMonth": 19.31,
+      "changePercent": 5.23
+    }
+  ]
+}
+```
+
+---
+
 ## 已知問題：部分 XLS 無法讀取
 
 若某月 XLS 出現 **File is password-protected** 或 **Encryption scheme unsupported**：
@@ -260,7 +301,7 @@ npm run data:generate-all-trustees-schemes
 
 ## 搜尋關鍵字（供 Agent / 文件搜尋）
 
-- MPF data pipeline、xls-to-json、split-trustees-schemes、split-fund-price-scheme、generate-all-trustees-schemes、xlsx
-- Consolidated list、trustee、scheme、unit price、fund price scheme
-- data/mpf/raw、data/mpf/json、trustees_schemes.json、fund_price_scheme.json、fund_price_scheme_YYYY-MM.json
+- MPF data pipeline、xls-to-json、split-trustees-schemes、split-fund-price-scheme、generate-all-trustees-schemes、top10-funds-this-month、xlsx
+- Consolidated list、trustee、scheme、unit price、fund price scheme、本月表現最佳基金、top10
+- data/mpf/raw、data/mpf/json、trustees_schemes.json、fund_price_scheme.json、fund_price_scheme_YYYY-MM.json、top10_funds_this_month.json
 - forward-fill、en/zh、name en zh
