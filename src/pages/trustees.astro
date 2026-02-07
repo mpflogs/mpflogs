@@ -1,0 +1,27 @@
+---
+import Layout from "../layouts/Layout.astro";
+import TrusteeSchemeSelector from "../components/TrusteeSchemeSelector";
+---
+<Layout
+  title="受託人與計劃 — MPF Logs"
+  description="按受託人選擇，列出強積金計劃"
+>
+  <section class="mb-10">
+    <h1 class="mb-2 text-2xl font-bold text-slate-800 sm:text-3xl">
+      受託人與計劃
+    </h1>
+    <p class="text-slate-600">
+      選擇受託人 (Trustee)，查看該受託人下的強積金計劃 (Schemes)。
+    </p>
+  </section>
+
+  <section
+    class="rounded-xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6"
+    aria-labelledby="selector-heading"
+  >
+    <h2 id="selector-heading" class="sr-only">
+      選擇受託人並檢視計劃
+    </h2>
+    <TrusteeSchemeSelector client:load />
+  </section>
+</Layout>

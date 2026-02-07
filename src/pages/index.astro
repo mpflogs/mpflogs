@@ -1,0 +1,21 @@
+---
+import Layout from "../layouts/Layout.astro";
+import FundChart from "../components/FundChart";
+---
+<Layout title="MPF Logs — 基金與大市比較" description="MPF 基金數據與大市指數比較，圖表分析">
+  <section class="mb-10">
+    <h1 class="mb-2 text-2xl font-bold text-slate-800 sm:text-3xl">
+      強積金基金與大市指數比較
+    </h1>
+    <p class="text-slate-600">
+      收集 MPF 基金數據，與恒生指數等大市表現對比，方便檢視基金回報。
+    </p>
+  </section>
+
+  <section class="rounded-xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6" aria-labelledby="chart-heading">
+    <h2 id="chart-heading" class="mb-4 text-lg font-semibold text-slate-800">
+      回報走勢
+    </h2>
+    <FundChart client:visible />
+  </section>
+</Layout>

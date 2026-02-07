@@ -1,0 +1,68 @@
+---
+import Layout from "../layouts/Layout.astro";
+import FundDetailView from "../components/FundDetailView";
+import type { FundPriceSchemeData } from "../types/mpf";
+
+const fundPriceScheme = await import("../../data/mpf/json/fund_price_scheme.json");
+const { data } = fundPriceScheme.default as FundPriceSchemeData;
+
+/** Unique funds with zh + fund (English); first occurrence wins for zh. */
+const fundNameMap = new Map<string, string | undefined>();
+for (const entry of data ?? []) {
+  for (const f of entry.funds ?? []) {
+    const key = f.fund.trim();
+    if (!fundNameMap.has(key)) fundNameMap.set(key, f.zh?.trim());
+  }
+}
+const allFunds = Array.from(fundNameMap.entries())
+  .map(([fund, zh]) => ({ fund, zh: zh || undefined }))
+  .sort((a, b) => (a.zh || a.fund).localeCompare(b.zh || b.fund, "zh-Hant"));
+---
+<Layout
+  title="全部基金名稱 — MPF Logs"
+  description="強積金全部基金名稱一覽"
+>
+  <section class="mb-10">
+    <h1 class="mb-2 text-2xl font-bold text-slate-800 sm:text-3xl">
+      全部基金名稱
+    </h1>
+    <p class="text-slate-600">
+      列出所有強積金基金名稱，共 {allFunds.length} 隻。
+    </p>
+  </section>
+
+  <FundDetailView client:load />
+
+  <section
+    class="rounded-xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6"
+    aria-labelledby="funds-heading"
+  >
+    <h2 id="funds-heading" class="mb-4 text-lg font-semibold text-slate-800">
+      基金一覽
+    </h2>
+    <ul
+      class="grid list-inside gap-2 text-slate-700 sm:grid-cols-2 lg:grid-cols-3"
+      role="list"
+    >
+      {
+        allFunds.map(({ fund, zh }) => (
+          <li class="rounded border border-slate-100 bg-slate-50/50 px-3 py-2">
+            <a
+              href={`/funds?detail=${encodeURIComponent(fund)}`}
+              class="block text-slate-700 hover:text-sky-600 hover:underline focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-1 rounded"
+            >
+              {zh ? (
+                <span>
+                  <span class="font-medium text-slate-800">{zh}</span>
+                  <span class="block text-sm text-slate-600">{fund}</span>
+                </span>
+              ) : (
+                <span>{fund}</span>
+              )}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</Layout>

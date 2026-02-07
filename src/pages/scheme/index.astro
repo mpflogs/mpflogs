@@ -1,0 +1,19 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import SchemeFundList from "../../components/SchemeFundList";
+---
+<Layout
+  title="計劃基金 — MPF Logs"
+  description="查看該強積金計劃下的全部基金"
+>
+  <section class="mb-10">
+    <h1 class="mb-2 text-2xl font-bold text-slate-800 sm:text-3xl">
+      計劃基金
+    </h1>
+    <p class="text-slate-600">
+      該計劃下的全部基金名稱與單位價格。
+    </p>
+  </section>
+
+  <SchemeFundList client:load />
+</Layout>

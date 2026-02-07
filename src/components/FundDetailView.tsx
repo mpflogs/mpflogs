@@ -1,0 +1,160 @@
+import React from "react";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
+import type { FundEntry, FundPriceSchemeData, UnitPriceEntry } from "../types/mpf";
+
+const DATA_URL = "/data/fund_price_scheme.json";
+
+const chartDataFromUnitPrice = (list: UnitPriceEntry[]): { month: string; price: number }[] =>
+  list
+    .filter((e): e is UnitPriceEntry & { price: number } => e.price != null && typeof e.price === "number")
+    .map(({ month, price }) => ({ month, price }));
+
+const isUnitPriceList = (up: FundEntry["unitPrice"]): up is UnitPriceEntry[] =>
+  Array.isArray(up) && up.length > 0 && typeof (up as UnitPriceEntry[])[0] === "object";
+
+const getDetailFromUrl = (): string | null => {
+  if (typeof window === "undefined") return null;
+  const params = new URLSearchParams(window.location.search);
+  return params.get("detail")?.trim() ?? null;
+};
+
+const FundDetailView = () => {
+  const [detail, setDetail] = React.useState<string | null>(null);
+  const [fund, setFund] = React.useState<FundEntry | null | "loading" | "not-found">("loading");
+
+  React.useEffect(() => {
+    const name = getDetailFromUrl();
+    setDetail(name);
+    if (!name) {
+      setFund(null);
+      return;
+    }
+    const load = async () => {
+      try {
+        const res = await fetch(DATA_URL);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const json = (await res.json()) as FundPriceSchemeData;
+        const list = json.data ?? [];
+        const decoded = decodeURIComponent(name).trim();
+        let found: FundEntry | null = null;
+        for (const entry of list) {
+          const f = entry.funds?.find((item) => (item.fund ?? "").trim() === decoded) ?? null;
+          if (f) {
+            found = f;
+            break;
+          }
+        }
+        setFund(found ?? "not-found");
+      } catch {
+        setFund("not-found");
+      }
+    };
+    setFund("loading");
+    void load();
+  }, []);
+
+  if (detail === null) return null;
+
+  if (fund === "loading") {
+    return (
+      <div className="mb-10 rounded-xl border border-slate-200 bg-white p-6 shadow-sm" role="status" aria-label="載入基金詳情">
+        <p className="text-slate-600">載入中…</p>
+      </div>
+    );
+  }
+
+  if (fund === "not-found") {
+    return (
+      <div className="mb-10 space-y-4 rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+        <p className="text-slate-600" role="status">未找到該基金</p>
+        <a
+          href="/funds/"
+          className="inline-block rounded-lg border border-slate-300 bg-white px-4 py-2 text-slate-700 hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-sky-500"
+          aria-label="返回全部基金"
+        >
+          返回全部基金
+        </a>
+      </div>
+    );
+  }
+
+  const hasList = isUnitPriceList(fund.unitPrice);
+  const list = hasList ? (fund.unitPrice as UnitPriceEntry[]) : [];
+  const chartData = hasList ? chartDataFromUnitPrice(list) : [];
+  const hasSinglePrice = !hasList && typeof fund.unitPrice === "number";
+
+  return (
+    <div className="mb-10 space-y-6 rounded-xl border border-slate-200 bg-white p-6 shadow-sm" role="region" aria-labelledby="fund-detail-heading">
+      <div>
+        <a
+          href="/funds/"
+          className="mb-4 inline-block text-sm text-slate-600 hover:text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500"
+          aria-label="返回全部基金"
+        >
+          ← 返回全部基金
+        </a>
+        <h2 id="fund-detail-heading" className="text-xl font-semibold text-slate-800">
+          {fund.zh || fund.fund}
+        </h2>
+        {fund.zh && fund.fund !== fund.zh && (
+          <p className="text-slate-600">{fund.fund}</p>
+        )}
+      </div>
+
+      {chartData.length > 0 && (
+        <section aria-labelledby="fund-chart-heading">
+          <h3 id="fund-chart-heading" className="mb-2 text-sm font-medium text-slate-700">
+            單位價格走勢
+          </h3>
+          <div className="h-[280px] w-full">
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart data={chartData} margin={{ top: 8, right: 8, left: 0, bottom: 0 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+                <XAxis dataKey="month" tick={{ fontSize: 12 }} stroke="#64748b" />
+                <YAxis tick={{ fontSize: 12 }} stroke="#64748b" tickFormatter={(v) => v.toLocaleString(undefined, { maximumFractionDigits: 2 })} />
+                <Tooltip
+                  formatter={(value: number) => [value.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 4 }), "單位價格"]}
+                  labelFormatter={(label) => `月份：${label}`}
+                  contentStyle={{ fontSize: 12 }}
+                />
+                <Line type="monotone" dataKey="price" name="單位價格" stroke="#0ea5e9" strokeWidth={2} dot={{ r: 4 }} />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
+        </section>
+      )}
+
+      <section aria-labelledby="fund-data-heading">
+        <h3 id="fund-data-heading" className="mb-2 text-sm font-medium text-slate-700">
+          單位價格數據
+        </h3>
+        {hasList && list.length > 0 ? (
+          <ul className="max-h-80 space-y-1 overflow-y-auto rounded-lg border border-slate-200 bg-slate-50/50 px-3 py-2 text-sm" role="list">
+            {list.map(({ month, price }) => (
+              <li key={month} className="flex justify-between gap-4 text-slate-700">
+                <span>{month}</span>
+                <span>{price != null ? price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 4 }) : "—"}</span>
+              </li>
+            ))}
+          </ul>
+        ) : hasSinglePrice ? (
+          <p className="text-slate-700">
+            單位價格：{(fund.unitPrice as number).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 4 })}
+          </p>
+        ) : (
+          <p className="text-slate-500">暫無單位價格數據</p>
+        )}
+      </section>
+    </div>
+  );
+};
+
+export default FundDetailView;
