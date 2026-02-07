@@ -3,7 +3,8 @@ import Layout from "../layouts/Layout.astro";
 import FundDetailView from "../components/FundDetailView";
 import type { FundPriceSchemeData } from "../types/mpf";
 
-const fundPriceScheme = await import("../../data/mpf/json/fund_price_scheme.json");
+// Use public copy so build works in CI (data/mpf/json/ is gitignored)
+const fundPriceScheme = await import("../../public/data/fund_price_scheme.json");
 const { data } = fundPriceScheme.default as FundPriceSchemeData;
 
 /** Unique funds with zh + fund (English); first occurrence wins for zh. */
