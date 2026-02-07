@@ -74,7 +74,7 @@ const SchemeFundList = () => {
           {params ? "未找到該計劃" : "請從受託人與計劃頁選擇計劃"}
         </p>
         <a
-          href="/trustees/"
+          href="/mpflogs/trustees/"
           className="inline-block rounded-lg border border-slate-300 bg-white px-4 py-2 text-slate-700 hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-sky-500"
           aria-label="返回受託人與計劃"
         >
@@ -90,7 +90,7 @@ const SchemeFundList = () => {
     <div className="space-y-6">
       <div>
         <a
-          href="/trustees/"
+          href="/mpflogs/trustees/"
           className="mb-4 inline-block text-sm text-slate-600 hover:text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500"
           aria-label="返回受託人與計劃"
         >

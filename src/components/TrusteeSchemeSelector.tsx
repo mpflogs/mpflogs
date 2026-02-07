@@ -108,7 +108,7 @@ const TrusteeSchemeSelector = () => {
           </h2>
           <ul className="space-y-3" role="list">
             {schemesForTrustee.map((entry) => {
-              const schemeHref = `/scheme/?trustee=${encodeURIComponent(entry.trustee.name.trim())}&scheme=${encodeURIComponent(entry.scheme.name.trim())}`;
+              const schemeHref = `/mpflogs/scheme/?trustee=${encodeURIComponent(entry.trustee.name.trim())}&scheme=${encodeURIComponent(entry.scheme.name.trim())}`;
               return (
                 <li key={entry.scheme.name}>
                   <a

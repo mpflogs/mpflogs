@@ -76,7 +76,7 @@ const FundDetailView = () => {
       <div className="mb-10 space-y-4 rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
         <p className="text-slate-600" role="status">未找到該基金</p>
         <a
-          href="/funds/"
+          href="/mpflogs/funds/"
           className="inline-block rounded-lg border border-slate-300 bg-white px-4 py-2 text-slate-700 hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-sky-500"
           aria-label="返回全部基金"
         >
@@ -95,7 +95,7 @@ const FundDetailView = () => {
     <div className="mb-10 space-y-6 rounded-xl border border-slate-200 bg-white p-6 shadow-sm" role="region" aria-labelledby="fund-detail-heading">
       <div>
         <a
-          href="/funds/"
+          href="/mpflogs/funds/"
           className="mb-4 inline-block text-sm text-slate-600 hover:text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500"
           aria-label="返回全部基金"
         >
