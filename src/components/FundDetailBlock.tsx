@@ -8,11 +8,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-import type { FundEntry, FundPriceSchemeData, UnitPriceEntry } from "../types/mpf";
-import { useBookmarks } from "../lib/useBookmarks";
-import BookmarkButton from "./BookmarkButton";
-
-const DATA_URL = `${(import.meta.env.BASE_URL || "/").replace(/\/?$/, "/")}data/fund_price_scheme.json`;
+import type { FundEntry, UnitPriceEntry } from "../types/mpf";
 
 const chartDataFromUnitPrice = (list: UnitPriceEntry[]): { month: string; price: number }[] =>
   list
@@ -22,119 +18,33 @@ const chartDataFromUnitPrice = (list: UnitPriceEntry[]): { month: string; price:
 const isUnitPriceList = (up: FundEntry["unitPrice"]): up is UnitPriceEntry[] =>
   Array.isArray(up) && up.length > 0 && typeof (up as UnitPriceEntry[])[0] === "object";
 
-const getDetailFromUrl = (): string | null => {
-  if (typeof window === "undefined") return null;
-  const params = new URLSearchParams(window.location.search);
-  return params.get("detail")?.trim() ?? null;
-};
+interface FundDetailBlockProps {
+  fund: FundEntry;
+  /** Optional heading id for a11y */
+  headingId?: string;
+}
 
-const FundDetailView = () => {
-  const [detail, setDetail] = React.useState<string | null>(null);
-  const [fund, setFund] = React.useState<FundEntry | null | "loading" | "not-found">(null);
-  const { isBookmarked, toggleBookmark } = useBookmarks();
-
-  React.useEffect(() => {
-    const syncFromUrl = () => {
-      const name = getDetailFromUrl();
-      setDetail(name);
-      if (!name) {
-        setFund(null);
-        return;
-      }
-      const load = async () => {
-        try {
-          const base = (import.meta.env.BASE_URL || "/").replace(/\/$/, "") || "/";
-          const dataUrl =
-            typeof window !== "undefined"
-              ? new URL(`${base}/data/fund_price_scheme.json`, window.location.origin).href
-              : DATA_URL;
-          const res = await fetch(dataUrl);
-          if (!res.ok) throw new Error(`HTTP ${res.status}`);
-          const json = (await res.json()) as FundPriceSchemeData;
-          const list = json.data ?? [];
-          const decoded = (name || "").trim();
-          let found: FundEntry | null = null;
-          for (const entry of list) {
-            const f = entry.funds?.find((item) => (item.fund ?? "").trim() === decoded) ?? null;
-            if (f) {
-              found = f;
-              break;
-            }
-          }
-          setFund(found ?? "not-found");
-        } catch {
-          setFund("not-found");
-        }
-      };
-      setFund("loading");
-      void load();
-    };
-    syncFromUrl();
-    window.addEventListener("popstate", syncFromUrl);
-    return () => window.removeEventListener("popstate", syncFromUrl);
-  }, []);
-
-  if (detail == null || detail === "") return null;
-
-  if (fund === "loading") {
-    return (
-      <div className="mb-10 rounded-xl border border-slate-200 bg-white p-6 shadow-sm" role="status" aria-label="載入基金詳情">
-        <p className="text-slate-600">載入中…</p>
-      </div>
-    );
-  }
-
-  if (fund === "not-found") {
-    return (
-      <div className="mb-10 space-y-4 rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-        <p className="text-slate-600" role="status">未找到該基金</p>
-        <a
-          href="/mpflogs/funds/"
-          className="inline-block rounded-lg border border-slate-300 bg-white px-4 py-2 text-slate-700 hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-sky-500"
-          aria-label="返回全部基金"
-        >
-          返回全部基金
-        </a>
-      </div>
-    );
-  }
-
-  if (!fund) return null;
-
+const FundDetailBlock = ({ fund, headingId = "fund-detail-block-heading" }: FundDetailBlockProps) => {
   const hasList = isUnitPriceList(fund.unitPrice);
   const list = hasList ? (fund.unitPrice as UnitPriceEntry[]) : [];
   const chartData = hasList ? chartDataFromUnitPrice(list) : [];
   const hasSinglePrice = !hasList && typeof fund.unitPrice === "number";
 
   return (
-    <div className="mb-10 space-y-6 rounded-xl border border-slate-200 bg-white p-6 shadow-sm" role="region" aria-labelledby="fund-detail-heading">
-      <div>
-        <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
-          <a
-            href="/mpflogs/funds/"
-            className="text-sm text-slate-600 hover:text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500"
-            aria-label="返回全部基金"
-          >
-            ← 返回全部基金
-          </a>
-          <BookmarkButton
-            fund={fund.fund}
-            isBookmarked={isBookmarked(fund.fund)}
-            onToggle={toggleBookmark}
-            ariaLabel={isBookmarked(fund.fund) ? "從收藏移除" : "加入收藏"}
-          />
-        </div>
-        <h2 id="fund-detail-heading" className="text-xl font-semibold text-slate-800">
-          {fund.zh || fund.fund}
-        </h2>
-        {fund.zh && fund.fund !== fund.zh && (
-          <p className="text-slate-600">{fund.fund}</p>
-        )}
-      </div>
+    <article
+      className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm"
+      aria-labelledby={headingId}
+    >
+      <h2 id={headingId} className="mb-4 text-xl font-semibold text-slate-800">
+        {fund.zh || fund.fund}
+      </h2>
+      {fund.zh && fund.fund !== fund.zh && (
+        <p className="mb-4 text-slate-600">{fund.fund}</p>
+      )}
 
       {chartData.length > 0 && (
-        <section aria-labelledby="fund-chart-heading">
-          <h3 id="fund-chart-heading" className="mb-2 text-sm font-medium text-slate-700">
+        <section aria-labelledby={`${headingId}-chart`}>
+          <h3 id={`${headingId}-chart`} className="mb-2 text-sm font-medium text-slate-700">
             單位價格走勢
           </h3>
           <div className="h-[280px] w-full">
@@ -155,13 +65,13 @@ const FundDetailView = () => {
         </section>
       )}
 
-      <section aria-labelledby="fund-data-heading">
-        <h3 id="fund-data-heading" className="mb-2 text-sm font-medium text-slate-700">
+      <section className="mt-4" aria-labelledby={`${headingId}-data`}>
+        <h3 id={`${headingId}-data`} className="mb-2 text-sm font-medium text-slate-700">
           單位價格數據
         </h3>
         {hasList && list.length > 0 ? (
           <div className="max-h-80 overflow-y-auto rounded-lg border border-slate-200 bg-slate-50/50 text-sm">
-            <table className="w-full border-collapse" role="table" aria-labelledby="fund-data-heading">
+            <table className="w-full border-collapse" role="table" aria-labelledby={`${headingId}-data`}>
               <thead className="sticky top-0 z-10 bg-slate-100/95">
                 <tr>
                   <th scope="col" className="px-3 py-2 text-left text-xs font-medium text-slate-600">
@@ -223,8 +133,8 @@ const FundDetailView = () => {
           <p className="text-slate-500">暫無單位價格數據</p>
         )}
       </section>
-    </div>
+    </article>
   );
 };
 
-export default FundDetailView;
+export default FundDetailBlock;

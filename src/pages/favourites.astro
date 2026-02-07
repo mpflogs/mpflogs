@@ -1,0 +1,19 @@
+---
+import Layout from "../layouts/Layout.astro";
+import FavouritesView from "../components/FavouritesView";
+---
+<Layout
+  title="我的收藏 — MPF Logs"
+  description="收藏的強積金基金，選擇一或多隻顯示詳情"
+>
+  <section class="mb-10">
+    <h1 class="mb-2 text-2xl font-bold text-slate-800 sm:text-3xl">
+      我的收藏
+    </h1>
+    <p class="text-slate-600">
+      選擇一或多隻已收藏的基金顯示詳情。
+    </p>
+  </section>
+
+  <FavouritesView client:load />
+</Layout>
