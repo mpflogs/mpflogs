@@ -1,7 +1,7 @@
 import React from "react";
 import type { FundPriceSchemeData, FundPriceSchemeEntry } from "../types/mpf";
 
-const DATA_URL = "/data/fund_price_scheme.json";
+const DATA_URL = `${(import.meta.env.BASE_URL || "/").replace(/\/?$/, "/")}data/fund_price_scheme.json`;
 
 const TrusteeSchemeSelector = () => {
   const [data, setData] = React.useState<FundPriceSchemeEntry[] | null>(null);

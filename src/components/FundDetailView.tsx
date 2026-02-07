@@ -10,7 +10,7 @@ import {
 } from "recharts";
 import type { FundEntry, FundPriceSchemeData, UnitPriceEntry } from "../types/mpf";
 
-const DATA_URL = "/data/fund_price_scheme.json";
+const DATA_URL = `${(import.meta.env.BASE_URL || "/").replace(/\/?$/, "/")}data/fund_price_scheme.json`;
 
 const chartDataFromUnitPrice = (list: UnitPriceEntry[]): { month: string; price: number }[] =>
   list
