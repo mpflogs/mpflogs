@@ -1,5 +1,7 @@
 import React from "react";
 import type { FundEntry, FundPriceSchemeData, FundPriceSchemeEntry } from "../types/mpf";
+import { useBookmarks } from "../lib/useBookmarks";
+import BookmarkButton from "./BookmarkButton";
 
 const DATA_URL = `${(import.meta.env.BASE_URL || "/").replace(/\/?$/, "/")}data/fund_price_scheme.json`;
 
@@ -20,6 +22,7 @@ const getParamsFromUrl = (): { trustee: string; scheme: string } | null => {
 };
 
 const SchemeFundList = () => {
+  const { isBookmarked, toggleBookmark } = useBookmarks();
   const [params, setParams] = React.useState<{ trustee: string; scheme: string } | null>(null);
   const [entry, setEntry] = React.useState<FundPriceSchemeEntry | null | "loading" | "not-found">("loading");
   const [error, setError] = React.useState<string | null>(null);
@@ -121,14 +124,24 @@ const SchemeFundList = () => {
             const fundLabel = fund.zh || fund.fund;
             return (
               <li key={fundKey} className="flex items-center gap-2 px-4 py-3 sm:px-6">
-                <div className="min-w-0 flex-1">
+                <a
+                  href={detailHref}
+                  className="min-w-0 flex-1 text-slate-700 hover:text-sky-600 hover:underline focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-1 rounded"
+                  aria-label={`查看 ${fundLabel} 圖表與數據`}
+                >
                   {fund.zh && (
                     <span className="font-medium text-slate-800">{fund.zh}</span>
                   )}
                   <span className={fund.zh ? "block text-sm text-slate-600" : "text-slate-800"}>
                     {fund.fund}
                   </span>
-                </div>
+                </a>
+                <BookmarkButton
+                  fund={fundKey}
+                  isBookmarked={isBookmarked(fundKey)}
+                  onToggle={toggleBookmark}
+                  ariaLabel={isBookmarked(fundKey) ? `從收藏移除：${fundLabel}` : `加入收藏：${fundLabel}`}
+                />
                 <a
                   href={detailHref}
                   className="flex shrink-0 items-center justify-center rounded p-2 text-slate-500 hover:bg-slate-100 hover:text-slate-700 focus:outline-none focus:ring-2 focus:ring-sky-500"
