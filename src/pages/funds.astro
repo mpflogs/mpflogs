@@ -49,7 +49,7 @@ const allFunds = Array.from(fundNameMap.entries())
         allFunds.map(({ fund, zh }) => (
           <li class="rounded border border-slate-100 bg-slate-50/50 px-3 py-2">
             <a
-              href={`/funds?detail=${encodeURIComponent(fund)}`}
+              href={`/mpflogs/funds?detail=${encodeURIComponent(fund)}`}
               class="block text-slate-700 hover:text-sky-600 hover:underline focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-1 rounded"
             >
               {zh ? (
