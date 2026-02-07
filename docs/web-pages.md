@@ -22,7 +22,8 @@
 
 1. **本地開發**：`npm run dev`，開啟 http://localhost:4321/trustees/ 與 http://localhost:4321/funds/。
 2. **導覽**：Layout 頂部有「受託人與計劃」「全部基金」連結。
-3. **更新前端資料**：跑完 data pipeline 後，需複製最新 JSON 到 public，否則網頁仍顯示舊資料：
+3. **GitHub Pages**：以 **GitHub Actions** 部署，不用 Jekyll。Repo **Settings → Pages → Source** 選 **GitHub Actions**。推送 `main` 後會執行 `.github/workflows/deploy.yml`（Astro build + deploy-pages）。網站網址：`https://<owner>.github.io/mpflogs`；`astro.config.mjs` 內 `base: "/mpflogs"`、`site` 需對應 owner。
+4. **更新前端資料**：跑完 data pipeline 後，需複製最新 JSON 到 public，否則網頁仍顯示舊資料：
    ```bash
    cp data/mpf/json/fund_price_scheme.json public/data/fund_price_scheme.json
    ```

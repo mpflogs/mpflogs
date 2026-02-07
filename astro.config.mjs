@@ -7,7 +7,7 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
-  // For GitHub Pages project site (e.g. username.github.io/mpflogs), set base: '/mpflogs'
-  site: "https://your-username.github.io",
-  base: "/",
+  // GitHub Pages project site: https://mpflogs.github.io/mpflogs
+  site: "https://mpflogs.github.io",
+  base: "/mpflogs",
 });
