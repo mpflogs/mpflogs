@@ -34,7 +34,7 @@
 
 - **TrusteeSchemeSelector**：`client:load`，在 mount 時 fetch 上述 JSON，不依賴 Astro 傳入大物件，避免序列化問題。
 - **計劃基金頁**：每行顯示基金中英文名（`fund.zh` + `fund.fund`），右側為「詳情」圖示連結至 `/funds?detail={基金名稱}`；不再使用行內展開／收合。資料來自 pipeline 的 `fund_price_scheme.json`（xls-to-json 從 XLS 下一列讀取 `fundZh`，split-fund-price-scheme 輸出為 `zh`）。
-- **基金詳情**：`/funds?detail={基金名稱}` 由 `FundDetailView`（client:load）讀取 URL 參數、fetch 同上 JSON，顯示該基金單位價格走勢圖與數據表；無 `detail` 時不渲染。
+- **基金詳情**：`/funds?detail={基金名稱}` 由 `FundDetailView`（client:load）讀取 URL 參數、fetch 同上 JSON，顯示該基金單位價格走勢圖與數據表；無 `detail` 時不渲染。單位價格數據表為三欄（月份、單位價格、變動百分比）；變動百分比於 **client 端**計算「本月 vs 上個月」`(本月 - 上個月) / 上個月 × 100`，首月或無上個月顯示「—」；顯示順序為**時間倒序**（最新月份在上）；正／負數以綠／紅顯示。
 - **全部基金列表**：`/funds/` 基金一覽以「中文第一行、英文第二行」顯示（有 `zh` 時）；每項可點進 `/funds?detail={名稱}`。資料由 Astro 從 `fund_price_scheme.json` 建 `allFunds`（以 fund 去重、取首次 zh）。
 - **首頁本月表現最佳基金**：`FundChart`（`src/components/FundChart.tsx`）讀取 `top10_funds_this_month.json`，以橫向長條圖顯示排名與本月較上月百分比；頭三名 bar 為金銀銅色、bar 尾顯示 🥇🥈🥉；Y 軸為基金名稱（中文上一行、英文下一行），可點擊連結至 `/funds?detail={fund}`。`SHOW_ONLY_TOP_5 = true` 時只顯示前 5 名；`USE_DEMO_DATA = true` 時不載入 JSON、改顯示負到正示範數據。Deploy 時 `.github/workflows/deploy.yml` 會先執行 `node scripts/top10-funds-this-month.mjs` 再 build，確保 public 有最新 top10 JSON。
 - **示範／假數據標示**：`FundChart` 當 `USE_DEMO_DATA` 或 fetch 失敗時會顯示示範數據並提示「以下為示範數據…」；錯誤狀態亦註明非真實數據。

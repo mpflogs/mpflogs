@@ -137,14 +137,61 @@ const FundDetailView = () => {
           單位價格數據
         </h3>
         {hasList && list.length > 0 ? (
-          <ul className="max-h-80 space-y-1 overflow-y-auto rounded-lg border border-slate-200 bg-slate-50/50 px-3 py-2 text-sm" role="list">
-            {list.map(({ month, price }) => (
-              <li key={month} className="flex justify-between gap-4 text-slate-700">
-                <span>{month}</span>
-                <span>{price != null ? price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 4 }) : "—"}</span>
-              </li>
-            ))}
-          </ul>
+          <div className="max-h-80 overflow-y-auto rounded-lg border border-slate-200 bg-slate-50/50 text-sm">
+            <table className="w-full border-collapse" role="table" aria-labelledby="fund-data-heading">
+              <thead className="sticky top-0 z-10 bg-slate-100/95">
+                <tr>
+                  <th scope="col" className="px-3 py-2 text-left text-xs font-medium text-slate-600">
+                    月份
+                  </th>
+                  <th scope="col" className="px-3 py-2 text-right text-xs font-medium text-slate-600">
+                    單位價格
+                  </th>
+                  <th scope="col" className="px-3 py-2 text-right text-xs font-medium text-slate-600">
+                    變動百分比
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="text-slate-700">
+                {[...list].reverse().map(({ month, price }, i, reversed) => {
+                  const prevPrice = reversed[i + 1]?.price ?? null;
+                  const changePercent =
+                    prevPrice != null &&
+                    typeof prevPrice === "number" &&
+                    price != null &&
+                    typeof price === "number" &&
+                    prevPrice !== 0
+                      ? ((price - prevPrice) / prevPrice) * 100
+                      : null;
+                  return (
+                    <tr key={month} className="border-t border-slate-200/80 first:border-t-0">
+                      <td className="px-3 py-1.5">{month}</td>
+                      <td className="px-3 py-1.5 text-right tabular-nums">
+                        {price != null
+                          ? price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 4 })
+                          : "—"}
+                      </td>
+                      <td
+                        className={`px-3 py-1.5 text-right tabular-nums ${
+                          changePercent === null
+                            ? "text-slate-500"
+                            : changePercent > 0
+                              ? "text-emerald-600"
+                              : changePercent < 0
+                                ? "text-rose-600"
+                                : "text-slate-600"
+                        }`}
+                      >
+                        {changePercent === null
+                          ? "—"
+                          : `${changePercent >= 0 ? "+" : ""}${changePercent.toFixed(2)}%`}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
         ) : hasSinglePrice ? (
           <p className="text-slate-700">
             單位價格：{(fund.unitPrice as number).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 4 })}
