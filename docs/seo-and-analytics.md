@@ -36,10 +36,22 @@ In any page that uses `Layout`, you can pass an `image` prop for social previews
 ## Sitemap
 
 - **Integration**: `@astrojs/sitemap` in `astro.config.mjs`.
-- **Output**: Build generates `sitemap-index.xml`.
+- **Output**: Build generates `sitemap-index.xml` (index) and `sitemap-0.xml` (actual URL list). The index only references child sitemaps; page URLs live in `sitemap-0.xml` — this is normal.
 - **URL**: `https://mpflogs.github.io/mpflogs/sitemap-index.xml`.
-- **Usage**: Submit this URL in [Google Search Console](https://search.google.com/search-console) for indexing.
+- **Usage**: Submit the **full URL** above in [Google Search Console](https://search.google.com/search-console) (Sitemaps) for indexing.
+
+### If Google reports "無法讀取 Sitemap"
+
+1. **Property URL**: In Search Console, the resource must be `https://mpflogs.github.io/mpflogs` (with `/mpflogs`). Add a new property if you only had `https://mpflogs.github.io`.
+2. **Submit full URL**: Use `https://mpflogs.github.io/mpflogs/sitemap-index.xml`, not just `sitemap-index.xml`.
+3. **Verify live**: After deploy, open `https://mpflogs.github.io/mpflogs/sitemap-index.xml` and `https://mpflogs.github.io/mpflogs/robots.txt` in the browser.
+
+## robots.txt
+
+- **Location**: `public/robots.txt` (copied to site root at build).
+- **URL**: `https://mpflogs.github.io/mpflogs/robots.txt`.
+- **Content**: `User-agent: *` with `Allow: /` and `Sitemap: https://mpflogs.github.io/mpflogs/sitemap-index.xml` so crawlers can discover the sitemap.
 
 ## Keywords (search-friendly)
 
-GA4, Google Analytics, gtag, SEO, canonical, Open Graph, Twitter Card, sitemap, mpflogs, Astro Layout.
+GA4, Google Analytics, gtag, SEO, canonical, Open Graph, Twitter Card, sitemap, sitemap-index, sitemap-0, robots.txt, Google Search Console, mpflogs, Astro Layout.
