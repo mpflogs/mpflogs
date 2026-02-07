@@ -117,7 +117,7 @@ const SchemeFundList = () => {
         <ul className="divide-y divide-slate-100" role="list">
           {funds.map((fund: FundEntry) => {
             const fundKey = fund.fund;
-            const detailHref = `/mpflogs/funds?detail=${encodeURIComponent(fundKey)}`;
+            const detailHref = `/mpflogs/funds/detail?fund=${encodeURIComponent(fundKey)}`;
             const fundLabel = fund.zh || fund.fund;
             return (
               <li key={fundKey} className="flex items-center gap-2 px-4 py-3 sm:px-6">

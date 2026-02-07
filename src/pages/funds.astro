@@ -1,6 +1,5 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import FundDetailView from "../components/FundDetailView";
 import FundListWithBookmarks from "../components/FundListWithBookmarks";
 import type { FundPriceSchemeData } from "../types/mpf";
 
@@ -32,8 +31,6 @@ const allFunds = Array.from(fundNameMap.entries())
       列出所有強積金基金名稱，共 {allFunds.length} 隻。
     </p>
   </section>
-
-  <FundDetailView client:load />
 
   <section
     class="rounded-xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6"

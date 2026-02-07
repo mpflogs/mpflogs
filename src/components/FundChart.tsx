@@ -213,7 +213,7 @@ const FundChart = () => {
                 const { x, y, index } = props;
                 const row = chartData[index];
                 const detailHref = row
-                  ? `${base}/funds?detail=${encodeURIComponent(row.fund)}`
+                  ? `${base}/funds/detail?fund=${encodeURIComponent(row.fund)}`
                   : "#";
                 const line1 = row?.fundZh ?? row?.fund ?? "";
                 const line2 = row?.fundZh ? row.fund : "";

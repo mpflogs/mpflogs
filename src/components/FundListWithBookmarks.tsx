@@ -29,7 +29,7 @@ const FundListWithBookmarks = ({
           className="flex items-center gap-2 rounded border border-slate-100 bg-slate-50/50 px-3 py-2"
         >
           <a
-            href={`${basePath}?detail=${encodeURIComponent(fund)}`}
+            href={`${basePath}/detail?fund=${encodeURIComponent(fund)}`}
             className="min-w-0 flex-1 text-slate-700 hover:text-sky-600 hover:underline focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-1 rounded"
           >
             {zh ? (

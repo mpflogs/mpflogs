@@ -1,0 +1,19 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import FundDetailView from "../../components/FundDetailView";
+---
+<Layout
+  title="基金詳情 — MPF Logs"
+  description="強積金基金單位價格走勢與數據"
+>
+  <section class="mb-10">
+    <h1 class="mb-2 text-2xl font-bold text-slate-800 sm:text-3xl">
+      基金詳情
+    </h1>
+    <p class="text-slate-600">
+      查看基金單位價格圖表與歷史數據。
+    </p>
+  </section>
+
+  <FundDetailView client:load />
+</Layout>

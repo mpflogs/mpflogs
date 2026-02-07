@@ -22,20 +22,29 @@ const chartDataFromUnitPrice = (list: UnitPriceEntry[]): { month: string; price:
 const isUnitPriceList = (up: FundEntry["unitPrice"]): up is UnitPriceEntry[] =>
   Array.isArray(up) && up.length > 0 && typeof (up as UnitPriceEntry[])[0] === "object";
 
-const getDetailFromUrl = (): string | null => {
+const getFundFromUrl = (): string | null => {
   if (typeof window === "undefined") return null;
   const params = new URLSearchParams(window.location.search);
-  return params.get("detail")?.trim() ?? null;
+  return params.get("fund")?.trim() ?? null;
 };
+
+const fundsListPath = `${(import.meta.env.BASE_URL || "/").replace(/\/?$/, "")}/funds/`;
 
 const FundDetailView = () => {
   const [detail, setDetail] = React.useState<string | null>(null);
   const [fund, setFund] = React.useState<FundEntry | null | "loading" | "not-found">(null);
+  const [isOnDetailPage, setIsOnDetailPage] = React.useState(false);
   const { isBookmarked, toggleBookmark } = useBookmarks();
 
   React.useEffect(() => {
+    if (typeof window === "undefined") return;
+    const path = window.location.pathname.replace(/\/$/, "");
+    setIsOnDetailPage(path.endsWith("/funds/detail"));
+  }, []);
+
+  React.useEffect(() => {
     const syncFromUrl = () => {
-      const name = getDetailFromUrl();
+      const name = getFundFromUrl();
       setDetail(name);
       if (!name) {
         setFund(null);
@@ -74,7 +83,34 @@ const FundDetailView = () => {
     return () => window.removeEventListener("popstate", syncFromUrl);
   }, []);
 
-  if (detail == null || detail === "") return null;
+  React.useEffect(() => {
+    if (fund && fund !== "loading" && fund !== "not-found") {
+      const title = fund.zh || fund.fund;
+      const prev = document.title;
+      document.title = `${title} — MPF Logs`;
+      return () => {
+        document.title = prev;
+      };
+    }
+  }, [fund]);
+
+  if (detail == null || detail === "") {
+    if (isOnDetailPage) {
+      return (
+        <div className="mb-10 rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+          <p className="mb-3 text-slate-600">請從網址指定基金，或前往全部基金選擇。</p>
+          <a
+            href={fundsListPath}
+            className="inline-block rounded-lg border border-slate-300 bg-white px-4 py-2 text-slate-700 hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-sky-500"
+            aria-label="前往全部基金"
+          >
+            前往全部基金
+          </a>
+        </div>
+      );
+    }
+    return null;
+  }
 
   if (fund === "loading") {
     return (
@@ -89,7 +125,7 @@ const FundDetailView = () => {
       <div className="mb-10 space-y-4 rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
         <p className="text-slate-600" role="status">未找到該基金</p>
         <a
-          href="/mpflogs/funds/"
+          href={fundsListPath}
           className="inline-block rounded-lg border border-slate-300 bg-white px-4 py-2 text-slate-700 hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-sky-500"
           aria-label="返回全部基金"
         >
@@ -111,7 +147,7 @@ const FundDetailView = () => {
       <div>
         <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
           <a
-            href="/mpflogs/funds/"
+            href={fundsListPath}
             className="text-sm text-slate-600 hover:text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500"
             aria-label="返回全部基金"
           >
