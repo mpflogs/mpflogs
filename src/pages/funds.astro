@@ -36,9 +36,6 @@ const allFunds = Array.from(fundNameMap.entries())
     class="rounded-xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6"
     aria-labelledby="funds-heading"
   >
-    <h2 id="funds-heading" class="mb-4 text-lg font-semibold text-slate-800">
-      基金一覽
-    </h2>
     <FundListWithBookmarks client:load funds={allFunds} basePath="/mpflogs/funds" />
   </section>
 </Layout>
