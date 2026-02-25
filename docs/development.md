@@ -23,6 +23,13 @@ Vite’s dependency pre-bundling cache can become stale (e.g. after long runs or
 
 **Prevention:** `astro.config.mjs` includes `vite.optimizeDeps.include: ["recharts"]` so recharts is pre-bundled and this issue is less likely.
 
+## UI & Theming
+
+- **Component library**: React islands use shadcn/ui-style components under `src/components/ui/` (e.g. `button`, `card`, `input`, `select`), plus a `ThemeToggle` in `src/components/ThemeToggle.tsx`.
+- **Tailwind v4 + CSS variables**: `src/styles/global.css` defines OKLCH color tokens (`--background`, `--foreground`, `--card`, `--border`, `--primary`, `--muted-foreground`, etc.) and exposes them via `@theme inline` as utilities like `bg-background`, `text-foreground`, `bg-card`, `border-border`, `text-muted-foreground`.
+- **Dark mode**: The `<html>` element toggles the `dark` class; an inline script in `Layout.astro` + `ThemeToggle` reads/writes `localStorage` key `mpflogs-theme` and system `prefers-color-scheme` to choose light/dark, and updates `<meta name="theme-color">`.
+- **Usage**: Prefer semantic tokens over raw colors, e.g. `text-foreground` instead of `text-slate-800`, `bg-card` instead of `bg-white`, `border-border` instead of `border-slate-200`, and `text-primary`/`text-muted-foreground` for emphasis and secondary text so both light/dark look good.
+
 ## Keywords
 
-Vite, recharts, 504, Outdated Optimize Dep, FundChart, dev server, mpflogs.
+Vite, recharts, 504, Outdated Optimize Dep, FundChart, dev server, mpflogs, shadcn, Tailwind v4, dark mode, ThemeToggle, background/foreground/card/border tokens.

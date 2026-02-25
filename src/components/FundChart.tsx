@@ -105,7 +105,7 @@ const FundChart = () => {
   if (loading) {
     return (
       <div
-        className="flex h-80 items-center justify-center rounded-lg border border-slate-200 bg-slate-50 text-slate-500"
+        className="flex h-80 items-center justify-center rounded-lg border border-border bg-muted text-muted-foreground"
         role="status"
         aria-label="載入圖表中"
       >
@@ -117,7 +117,7 @@ const FundChart = () => {
   if (!top10Payload?.top10?.length) {
     return (
       <div
-        className="rounded-lg border border-amber-200 bg-amber-50 p-4 text-amber-800"
+        className="rounded-lg border border-destructive/50 bg-destructive/10 p-4 text-destructive"
         role="alert"
       >
         <p className="font-medium">無法載入數據</p>
@@ -171,14 +171,14 @@ const FundChart = () => {
     <div className="space-y-2">
       {error && (
         <p
-          className="rounded-lg border border-amber-300 bg-amber-50 px-3 py-2 text-sm font-medium text-amber-800"
+          className="rounded-lg border border-border bg-muted px-3 py-2 text-sm font-medium text-muted-foreground"
           role="status"
           aria-live="polite"
         >
           以下為示範數據（由負數至正數），非真實數據。
         </p>
       )}
-      <p className="text-sm text-slate-600">
+      <p className="text-sm text-muted-foreground">
         本月（{top10Payload.thisMonth}）較上月（{top10Payload.lastMonth}）回報百分比
       </p>
       <div
@@ -192,12 +192,12 @@ const FundChart = () => {
             data={chartData}
             margin={{ top: 8, right: 56, left: 8, bottom: 8 }}
           >
-            <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" horizontal={false} />
+            <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" horizontal={false} />
             <XAxis
               type="number"
               dataKey="changePercent"
               tickFormatter={(v) => `${v}%`}
-              stroke="#64748b"
+              stroke="var(--muted-foreground)"
               fontSize={12}
               domain={[xDomainMin, xDomainMax]}
             />
@@ -205,7 +205,7 @@ const FundChart = () => {
               type="category"
               dataKey="label"
               width={240}
-              stroke="#64748b"
+              stroke="var(--muted-foreground)"
               fontSize={12}
               tickLine={false}
               axisLine={false}
@@ -226,14 +226,14 @@ const FundChart = () => {
                       >
                         <a
                           href={detailHref}
-                          className="block text-slate-600 no-underline hover:text-sky-600 hover:underline focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-1 rounded"
+                          className="block text-muted-foreground no-underline hover:text-primary hover:underline focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-1 rounded"
                           aria-label={`查看 ${line1} ${line2 ? `(${line2})` : ""} 詳情`}
                         >
-                          <span className="block font-medium text-slate-800">
+                          <span className="block font-medium text-foreground">
                             {line1}
                           </span>
                           {line2 ? (
-                            <span className="block text-[11px] text-slate-500">
+                            <span className="block text-[11px] text-muted-foreground">
                               {line2}
                             </span>
                           ) : null}
@@ -250,7 +250,7 @@ const FundChart = () => {
                 const p = payload?.[0]?.payload as (typeof chartData)[0] | undefined;
                 return p ? `${p.fundZh ?? p.fund}` : "";
               }}
-              contentStyle={{ borderRadius: "8px", border: "1px solid #e2e8f0" }}
+              contentStyle={{ borderRadius: "8px", border: "1px solid var(--border)" }}
             />
             <Bar dataKey="changePercent" name="百分比" radius={[0, 4, 4, 0]} barSize={24}>
               <LabelList dataKey="medal" content={renderMedal} position="right" />

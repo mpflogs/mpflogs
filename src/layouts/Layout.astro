@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import ThemeToggle from "../components/ThemeToggle";
 
 interface Props {
   title?: string;
@@ -37,7 +38,17 @@ const imageUrl = image?.startsWith("http") ? image : image ? `${site}/mpflogs${i
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     {imageUrl && <meta name="twitter:image" content={imageUrl} />}
-    <meta name="theme-color" content="#f8fafc" />
+    <meta name="theme-color" content="#ffffff" />
+    <!-- Dark mode: set class before paint to avoid flash -->
+    <script is:inline>
+      (function () {
+        var k = "mpflogs-theme";
+        var s = typeof localStorage !== "undefined" && (localStorage.getItem(k) === "dark" || (!localStorage.getItem(k) && window.matchMedia("(prefers-color-scheme: dark)").matches));
+        document.documentElement.classList.toggle("dark", !!s);
+        var m = document.querySelector('meta[name="theme-color"]');
+        if (m) m.setAttribute("content", s ? "#0c0c0c" : "#ffffff");
+      })();
+    </script>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-48TP59450X"></script>
     <script is:inline>
@@ -47,38 +58,39 @@ const imageUrl = image?.startsWith("http") ? image : image ? `${site}/mpflogs${i
       gtag('config', 'G-48TP59450X');
     </script>
   </head>
-  <body class="min-h-screen bg-slate-50 text-slate-900 antialiased">
-    <header class="border-b border-slate-200 bg-white">
-      <nav class="mx-auto max-w-6xl px-4 py-4 sm:px-6" aria-label="主導覽">
+  <body class="min-h-screen bg-background text-foreground antialiased">
+    <header class="border-b border-border bg-card">
+      <nav class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-4 py-4 sm:px-6" aria-label="主導覽">
         <ul class="flex flex-wrap items-center gap-4">
           <li>
-            <a href="/mpflogs/" class="text-xl font-semibold text-slate-800 hover:text-slate-600" tabindex="0" aria-label="返回首頁">
+            <a href="/mpflogs/" class="text-xl font-semibold text-foreground hover:text-muted-foreground" tabindex={0} aria-label="返回首頁">
               MPF Logs
             </a>
           </li>
           <li>
-            <a href="/mpflogs/trustees/" class="rounded px-2 py-1 text-slate-600 hover:bg-slate-100 hover:text-slate-800" tabindex="0" aria-label="受託人與計劃">
+            <a href="/mpflogs/trustees/" class="rounded px-2 py-1 text-muted-foreground hover:bg-accent hover:text-accent-foreground" tabindex={0} aria-label="受託人與計劃">
               受託人與計劃
             </a>
           </li>
           <li>
-            <a href="/mpflogs/funds/" class="rounded px-2 py-1 text-slate-600 hover:bg-slate-100 hover:text-slate-800" tabindex="0" aria-label="全部基金">
+            <a href="/mpflogs/funds/" class="rounded px-2 py-1 text-muted-foreground hover:bg-accent hover:text-accent-foreground" tabindex={0} aria-label="全部基金">
               全部基金
             </a>
           </li>
           <li>
-            <a href="/mpflogs/favourites/" class="rounded px-2 py-1 text-slate-600 hover:bg-slate-100 hover:text-slate-800" tabindex="0" aria-label="我的收藏">
+            <a href="/mpflogs/favourites/" class="rounded px-2 py-1 text-muted-foreground hover:bg-accent hover:text-accent-foreground" tabindex={0} aria-label="我的收藏">
               我的收藏
             </a>
           </li>
         </ul>
+        <ThemeToggle client:load />
       </nav>
     </header>
     <main class="mx-auto max-w-6xl px-4 py-8 sm:px-6">
       <slot />
     </main>
-    <footer class="border-t border-slate-200 bg-white py-6">
-      <div class="mx-auto max-w-6xl px-4 text-center text-sm text-slate-500 sm:px-6">
+    <footer class="border-t border-border bg-card py-6">
+      <div class="mx-auto max-w-6xl px-4 text-center text-sm text-muted-foreground sm:px-6">
         MPF Logs — 開源於 GitHub
       </div>
     </footer>

@@ -24,16 +24,16 @@ const allFunds = Array.from(fundNameMap.entries())
   description="強積金全部基金名稱一覽"
 >
   <section class="mb-10">
-    <h1 class="mb-2 text-2xl font-bold text-slate-800 sm:text-3xl">
+    <h1 class="mb-2 text-2xl font-bold text-foreground sm:text-3xl">
       全部基金名稱
     </h1>
-    <p class="text-slate-600">
+    <p class="text-muted-foreground">
       列出所有強積金基金名稱，共 {allFunds.length} 隻。
     </p>
   </section>
 
   <section
-    class="rounded-xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6"
+    class="rounded-xl border border-border bg-card p-4 shadow-sm sm:p-6"
     aria-labelledby="funds-heading"
   >
     <FundListWithBookmarks client:load funds={allFunds} basePath="/mpflogs/funds" />

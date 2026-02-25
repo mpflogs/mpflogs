@@ -33,11 +33,11 @@ const BookmarkButton = ({
       onKeyDown={handleKeyDown}
       aria-label={label}
       tabIndex={0}
-      className={`shrink-0 rounded p-1.5 text-sky-600 transition-colors hover:bg-sky-50 focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-1 ${className}`}
+      className={`shrink-0 rounded p-1.5 text-primary transition-colors hover:bg-accent focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 ${className}`}
     >
       {isBookmarked ? (
         <svg
-          className="h-5 w-5"
+          className="size-5"
           fill="currentColor"
           viewBox="0 0 24 24"
           aria-hidden
@@ -46,7 +46,7 @@ const BookmarkButton = ({
         </svg>
       ) : (
         <svg
-          className="h-5 w-5"
+          className="size-5"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
