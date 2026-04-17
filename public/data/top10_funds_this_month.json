@@ -1,107 +1,107 @@
 {
-  "generatedAt": "2026-02-25T07:25:49.571Z",
-  "thisMonth": "2026-01",
-  "lastMonth": "2025-12",
+  "generatedAt": "2026-04-17T12:48:19.157Z",
+  "thisMonth": "2026-03",
+  "lastMonth": "2026-02",
   "top10": [
     {
       "rank": 1,
-      "fund": "Haitong Korea Fund - Class A",
-      "fundZh": "海通韓國基金 - A 類別",
-      "trustee": "HSBC Provident Fund Trustee (Hong Kong) Limited",
-      "scheme": "Haitong MPF Retirement Fund",
-      "priceThisMonth": 58.7718,
-      "priceLastMonth": 46.3757,
-      "changePercent": 26.729731303247167
+      "fund": "Invesco MPF Conservative Fund ",
+      "fundZh": "景順強積金保守基金",
+      "trustee": "Standard Chartered Trustee (Hong Kong) Limited",
+      "scheme": "SHKP MPF Employer Sponsored Scheme",
+      "priceThisMonth": 12.676,
+      "priceLastMonth": 12.654,
+      "changePercent": 0.1738580685949126
     },
     {
       "rank": 2,
-      "fund": "Haitong Korea Fund - Class T",
-      "fundZh": "海通韓國基金 - T 類別",
-      "trustee": "HSBC Provident Fund Trustee (Hong Kong) Limited",
-      "scheme": "Haitong MPF Retirement Fund",
-      "priceThisMonth": 64.6629,
-      "priceLastMonth": 51.0243,
-      "changePercent": 26.72961706481029
+      "fund": "Principal - MPF Conservative Fund",
+      "fundZh": "信安 – 強積金保守基金",
+      "trustee": "Principal Trust Company (Asia) Limited",
+      "scheme": "Principal MPF - Simple Plan",
+      "priceThisMonth": 11.86,
+      "priceLastMonth": 11.84,
+      "changePercent": 0.16891891891891533
     },
     {
       "rank": 3,
-      "fund": "BEA (MPF) Asian Equity Fund",
-      "fundZh": "東亞 (強積金) 亞洲股票基金",
-      "trustee": "Bank of East Asia (Trustees) Limited",
-      "scheme": "BEA (MPF) Master Trust Scheme",
-      "priceThisMonth": 43.5751,
-      "priceLastMonth": 38.1527,
-      "changePercent": 14.212362427822923
+      "fund": "Principal - MPF Conservative Fund",
+      "fundZh": "信安 – 強積金保守基金",
+      "trustee": "Principal Trust Company (Asia) Limited",
+      "scheme": "Principal MPF - Smart Plan",
+      "priceThisMonth": 12.22,
+      "priceLastMonth": 12.2,
+      "changePercent": 0.1639344262295193
     },
     {
       "rank": 4,
-      "fund": "BEA (Industry Scheme) Asian Equity Fund",
-      "fundZh": "東亞 (行業計劃) 亞洲股票基金",
-      "trustee": "Bank of East Asia (Trustees) Limited",
-      "scheme": "BEA (MPF) Industry Scheme",
-      "priceThisMonth": 25.3752,
-      "priceLastMonth": 22.2366,
-      "changePercent": 14.114567874585147
+      "fund": "MPF Conservative Fund",
+      "fundZh": "強積金保守基金",
+      "trustee": "HSBC Provident Fund Trustee (Hong Kong) Limited",
+      "scheme": "HSBC Mandatory Provident Fund - \nSuperTrust Plus",
+      "priceThisMonth": 14.2923,
+      "priceLastMonth": 14.269,
+      "changePercent": 0.16329105052911197
     },
     {
       "rank": 5,
-      "fund": "BEA Asian Equity Fund",
-      "fundZh": "東亞亞洲股票基金",
-      "trustee": "Bank of East Asia (Trustees) Limited",
-      "scheme": "BEA (MPF) Value Scheme",
-      "priceThisMonth": 23.1267,
-      "priceLastMonth": 20.3215,
-      "changePercent": 13.804099106857265
+      "fund": "MPF Conservative Fund",
+      "fundZh": "強積金保守基金",
+      "trustee": "HSBC Provident Fund Trustee (Hong Kong) Limited",
+      "scheme": "Hang Seng Mandatory Provident Fund – SuperTrust Plus",
+      "priceThisMonth": 14.2935,
+      "priceLastMonth": 14.2702,
+      "changePercent": 0.16327731916861002
     },
     {
       "rank": 6,
-      "fund": "Haitong Asia Pacific Fund –  Class T",
-      "fundZh": "海通亞太基金 - T 類別",
+      "fund": "Haitong MPF Conservative Fund - Class T",
+      "fundZh": "海通強積金保守基金 - T 類別",
       "trustee": "HSBC Provident Fund Trustee (Hong Kong) Limited",
       "scheme": "Haitong MPF Retirement Fund",
-      "priceThisMonth": 31.7861,
-      "priceLastMonth": 28.1537,
-      "changePercent": 12.902034190887878
+      "priceThisMonth": 12.7448,
+      "priceLastMonth": 12.7244,
+      "changePercent": 0.16032190122913786
     },
     {
       "rank": 7,
-      "fund": "Haitong Asia Pacific Fund – Class A",
-      "fundZh": "海通亞太基金 - A 類別",
+      "fund": "Haitong MPF Conservative Fund - Class A",
+      "fundZh": "海通強積金保守基金 - A 類別",
       "trustee": "HSBC Provident Fund Trustee (Hong Kong) Limited",
       "scheme": "Haitong MPF Retirement Fund",
-      "priceThisMonth": 27.6317,
-      "priceLastMonth": 24.475,
-      "changePercent": 12.897650663942786
+      "priceThisMonth": 12.4887,
+      "priceLastMonth": 12.4693,
+      "changePercent": 0.15558210966132177
     },
     {
       "rank": 8,
-      "fund": "Allianz Oriental Pacific Fund - Class T",
-      "fundZh": "安聯東方太平洋基金 - 單位T\n",
-      "trustee": "Bank Consortium Trust Company Limited",
-      "scheme": "Manulife RetireChoice (MPF) Scheme",
-      "priceThisMonth": 66.4672,
-      "priceLastMonth": 59.7853,
-      "changePercent": 11.176493218232586
+      "fund": "Sun Life MPF Conservative Fund - Class A",
+      "fundZh": "永明強積金保守基金 - A 類",
+      "trustee": "Sun Life Trustee Company Limited",
+      "scheme": "Sun Life Rainbow MPF Scheme",
+      "priceThisMonth": 1.2471,
+      "priceLastMonth": 1.2452,
+      "changePercent": 0.15258592997109
     },
     {
       "rank": 9,
-      "fund": "Allianz Oriental Pacific Fund - Class B",
-      "fundZh": "安聯東方太平洋基金 - 單位B\n",
-      "trustee": "Bank Consortium Trust Company Limited",
-      "scheme": "Manulife RetireChoice (MPF) Scheme",
-      "priceThisMonth": 66.2964,
-      "priceLastMonth": 59.6333,
-      "changePercent": 11.173455099751326
+      "fund": "BOC-Prudential MPF Conservative Fund",
+      "fundZh": "中銀保誠強積金保守基金",
+      "trustee": "BOCI-Prudential Trustee Limited",
+      "scheme": "BOC-Prudential Easy-Choice Mandatory Provident Fund Scheme",
+      "priceThisMonth": 13.4684,
+      "priceLastMonth": 13.4479,
+      "changePercent": 0.15244015794287719
     },
     {
       "rank": 10,
-      "fund": "Allianz Oriental Pacific Fund - Class A",
-      "fundZh": "安聯東方太平洋基金 - 單位A\n",
-      "trustee": "Bank Consortium Trust Company Limited",
-      "scheme": "Manulife RetireChoice (MPF) Scheme",
-      "priceThisMonth": 57.2346,
-      "priceLastMonth": 51.4908,
-      "changePercent": 11.155002447039083
+      "fund": "Sun Life MPF Conservative Fund - Class B",
+      "fundZh": "永明強積金保守基金 - B 類",
+      "trustee": "Sun Life Trustee Company Limited",
+      "scheme": "Sun Life Rainbow MPF Scheme",
+      "priceThisMonth": 1.2522,
+      "priceLastMonth": 1.2503,
+      "changePercent": 0.1519635287531003
     }
   ]
 }

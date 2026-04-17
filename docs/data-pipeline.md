@@ -305,3 +305,29 @@ npm run data:top10-funds-this-month
 - Consolidated list、trustee、scheme、unit price、fund price scheme、本月表現最佳基金、top10
 - data/mpf/raw、data/mpf/json、trustees_schemes.json、fund_price_scheme.json、fund_price_scheme_YYYY-MM.json、top10_funds_this_month.json
 - forward-fill、en/zh、name en zh
+
+---
+
+## 最近一次更新紀錄（2026-04-17）
+
+- **目的**：處理新增 raw data（含 2026-02、2026-03）並刷新前端可用資料。
+- **執行指令**（專案根目錄）：
+
+```bash
+npm run data:generate-all-trustees-schemes
+npm run data:split-fund-price-scheme
+npm run data:merge-fund-price-months
+cp data/mpf/json/fund_price_scheme.json public/data/fund_price_scheme.json
+npm run data:top10-funds-this-month
+npm run build
+```
+
+- **處理結果**：
+  - `fund_price_scheme_YYYY-MM.json` 已覆蓋到 `2026-03`（共 15 個月：`2025-01` ~ `2026-03`）。
+  - top10 比較區間更新為 `2026-03` vs `2026-02`。
+  - Build 成功（Astro static build complete）。
+- **主要輸出**：
+  - `data/mpf/json/fund_price_scheme.json`
+  - `public/data/fund_price_scheme.json`
+  - `data/mpf/json/top10_funds_this_month.json`
+  - `public/data/top10_funds_this_month.json`
