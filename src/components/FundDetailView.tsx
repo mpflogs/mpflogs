@@ -59,7 +59,7 @@ const FundDetailView = () => {
             typeof window !== "undefined"
               ? new URL(`${base}/data/fund_price_scheme.json`, window.location.origin).href
               : DATA_URL;
-          const res = await fetch(dataUrl);
+          const res = await fetch(dataUrl, { cache: "no-store" });
           if (!res.ok) throw new Error(`HTTP ${res.status}`);
           const json = (await res.json()) as FundPriceSchemeData;
           const list = json.data ?? [];

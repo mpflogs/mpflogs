@@ -22,11 +22,6 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Generate top10 funds JSON
-        run: node scripts/top10-funds-this-month.mjs
-        env:
-          NODE_OPTIONS: ""
-
       - name: Install, build, and upload
         uses: withastro/action@v5
 

@@ -86,7 +86,7 @@ const FundChart = () => {
 
     const fetchTop10 = async () => {
       try {
-        const res = await fetch(`${base}/data/top10_funds_this_month.json`);
+        const res = await fetch(`${base}/data/top10_funds_this_month.json`, { cache: "no-store" });
         if (!res.ok) throw new Error("top10_funds_this_month.json not found");
         const json = (await res.json()) as Top10Payload;
         setTop10Payload(json);

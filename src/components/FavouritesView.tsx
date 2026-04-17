@@ -26,7 +26,7 @@ const FavouritesView = () => {
   React.useEffect(() => {
     const load = async () => {
       try {
-        const res = await fetch(DATA_URL);
+        const res = await fetch(DATA_URL, { cache: "no-store" });
         if (!res.ok) return;
         const json = (await res.json()) as FundPriceSchemeData;
         setFundToZh(buildFundToZh(json));

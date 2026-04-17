@@ -39,7 +39,7 @@ const SchemeFundList = () => {
     const { trustee, scheme } = urlParams;
     const load = async () => {
       try {
-        const res = await fetch(DATA_URL);
+        const res = await fetch(DATA_URL, { cache: "no-store" });
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const json = (await res.json()) as FundPriceSchemeData;
         const list = json.data ?? [];
