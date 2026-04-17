@@ -264,7 +264,7 @@ npm run data:top10-funds-this-month
 # 或：node scripts/top10-funds-this-month.mjs
 ```
 
-**建議順序**：先跑 `data:merge-fund-price-months` 並 `cp fund_price_scheme.json public/data/`，再跑本腳本。Deploy 時 `.github/workflows/deploy.yml` 會先執行本腳本再 build，無需手動複製。
+**建議順序**：先跑 `data:merge-fund-price-months` 並 `cp fund_price_scheme.json public/data/`，再跑本腳本。Deploy workflow 不會再重跑 top10，請以已提交到 repo 的 `public/data/*.json` 為準。
 
 ### 輸出結構（top10_funds_this_month.json）
 
@@ -296,6 +296,22 @@ npm run data:top10-funds-this-month
 
 - **原因**：該檔在 Excel 存檔時設了「結構保護」或使用較新加密，OLE metadata 為 `Security: 1`。腳本已對「唯讀」標準密碼 `VelvetSweatshop` 做重試；若仍報 **Encryption scheme unsupported**，表示 xlsx 開源版不支援該加密方式（見 [SheetJS #2963](https://git.sheetjs.com/sheetjs/sheetjs/issues/2963)）。
 - **做法**：用 Excel 開啟該 XLS → 另存新檔 → 存檔時不要勾選「保護活頁簿」/「密碼」，再放回 `data/mpf/raw/` 重新執行腳本。
+
+---
+
+## 已知問題：GitHub Pages 部署後數據看起來沒更新
+
+若部署成功但頁面仍顯示舊月份，常見原因是「部署流程覆蓋資料」或「瀏覽器快取」。
+
+- **原因 1（已修正）**：deploy workflow 若在 CI 重跑 `top10-funds-this-month.mjs`，可能覆蓋已提交的 `public/data/top10_funds_this_month.json`。
+- **原因 2（已修正）**：前端 `fetch("/data/*.json")` 可能命中瀏覽器快取。
+- **目前做法**：
+  - deploy 流程不再重生 top10，直接使用 repo 內已提交的 JSON。
+  - 前端抓 JSON 時使用 `fetch(..., { cache: "no-store" })`。
+- **排查步驟**：
+  1. 確認最新 commit 已包含 `public/data/fund_price_scheme.json`、`public/data/top10_funds_this_month.json`。
+  2. 確認 Actions 的 deploy run 使用該 commit（與 main HEAD 一致）。
+  3. 上線後用強制重整（Mac: `Cmd+Shift+R`）再檢查首頁月份。
 
 ---
 
